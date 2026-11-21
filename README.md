@@ -71,7 +71,7 @@ Please review our [Contributing Guidelines](CONTRIBUTING.md) and [Code of Conduc
 
 Thank you to everyone who has contributed to Craftoras!
 
-- **[Shafiya Bashir](https://github.com/Shafiya-Bashir)** — Contributor
+- **[Shafiya Bashir](https://github.com/shafiyabashirpampori)** — Contributor
 - **[Dar Rehan Rasool](https://github.com/darrehanrasool)** — Maintainer & Core Contributor
 
 *(Feel free to add your name here when submitting your contribution!)*
