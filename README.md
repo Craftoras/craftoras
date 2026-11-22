@@ -1,5 +1,6 @@
 # Craftoras 🛍️✨
 
+[![DOI](https://zenodo.org/badge/1460295878.svg)](https://zenodo.org/badge/latestdoi/1460295878)
 [![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](CODE_OF_CONDUCT.md)
