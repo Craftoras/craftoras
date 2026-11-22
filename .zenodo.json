@@ -1,0 +1,19 @@
+{
+  "title": "Craftoras: Intelligent Artisan Marketplace and Computational Provenance Platform",
+  "description": "A decentralized and intelligent platform integrating computational verification, supply chain provenance, and e-commerce for artisanal crafts.",
+  "creators": [
+    {
+      "name": "Rasool, Dar Rehan",
+      "affiliation": "Centre for Artificial Intelligence, Islamic University of Science and Technology (IUST), Kashmir",
+      "orcid": "0009-0004-6426-5195"
+    }
+  ],
+  "access_right": "open",
+  "license": "MIT",
+  "keywords": [
+    "e-commerce",
+    "provenance",
+    "artisan-platform",
+    "intelligent-systems"
+  ]
+}
