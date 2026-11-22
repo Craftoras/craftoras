@@ -1,9 +1,18 @@
 # Craftoras 🛍️✨
 
+[![TypeScript 5+](https://img.shields.io/badge/TypeScript-5.0+-3178c6.svg?logo=typescript)](https://www.typescriptlang.org/)
+[![React 18+](https://img.shields.io/badge/React-18.0+-61dafb.svg?logo=react)](https://react.dev/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind%20CSS-3.4+-38bdf8.svg?logo=tailwind-css)](https://tailwindcss.com/)
+[![Platform: Artisan Marketplace](https://img.shields.io/badge/Platform-Artisan%20%26%20Handloom%20Provenance-emerald.svg)](README.md)
+[![Domain: Heritage & Provenance](https://img.shields.io/badge/Domain-Kashmiri%20Crafts%20%26%20Carpet%20Weaving-purple.svg)](README.md)
+[![Architecture: Computational Provenance](https://img.shields.io/badge/Architecture-Decentralized%20Supply%20Chain-blue.svg)](README.md)
 [![DOI](https://zenodo.org/badge/1460295878.svg)](https://zenodo.org/badge/latestdoi/1460295878)
-[![License: MIT](https://img.shields.io/badge/License-MIT-blue.svg)](LICENSE)
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
+[![Code Style: Prettier](https://img.shields.io/badge/code%20style-prettier-ff69b4.svg)](https://prettier.io)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.1-4baaaa.svg)](CODE_OF_CONDUCT.md)
+[![Project Lead](https://img.shields.io/badge/Project%20Lead-Dar%20Rehan%20Rasool-0284c7.svg)](https://github.com/darrehanrasool)
+[![Copyright](https://img.shields.io/badge/Copyright-%40darrehanrasool-10b981.svg)](https://github.com/darrehanrasool)
 
 > A premium e-commerce platform showcasing exquisite Kashmiri handicrafts, textiles, carpets, and heritage-inspired creations to the world.
 
