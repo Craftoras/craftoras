@@ -1,0 +1,30 @@
+{
+  "name": "craftoras-monorepo",
+  "version": "1.0.0",
+  "description": "Craftoras - Premium Kashmiri Artisan & Handicraft Provenance E-Commerce Platform",
+  "private": true,
+  "scripts": {
+    "test:backend": "npm --prefix backend test",
+    "test:dashboard": "CI=true npm --prefix dashboard test -- --watchAll=false",
+    "test:frontend": "CI=true npm --prefix frontend test -- --watchAll=false",
+    "test": "npm run test:backend && npm run test:dashboard && npm run test:frontend",
+    "build:dashboard": "npm --prefix dashboard run build",
+    "build:frontend": "npm --prefix frontend run build",
+    "build": "npm run build:dashboard && npm run build:frontend",
+    "start:backend": "npm --prefix backend start",
+    "start:dashboard": "PORT=3001 npm --prefix dashboard start",
+    "start:frontend": "PORT=3000 npm --prefix frontend start"
+  },
+  "keywords": [
+    "craftoras",
+    "ecommerce",
+    "kashmiri-crafts",
+    "handicrafts",
+    "react",
+    "express",
+    "mongodb",
+    "socketio"
+  ],
+  "author": "Dar Rehan Rasool <https://github.com/darrehanrasool>",
+  "license": "MIT"
+}
