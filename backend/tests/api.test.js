@@ -22,14 +22,14 @@ test('Backend Health Check & Welcome Endpoint', async (t) => {
     });
 });
 
-test('Security & DDoS Rate Limiting Headers', async (t) => {
+test('Security & API Rate Limiting Headers', async (t) => {
     await t.test('Response should include Helmet security headers', async () => {
         const res = await request(app).get('/api/health');
         assert.equal(res.headers['x-content-type-options'], 'nosniff');
         assert.equal(res.headers['x-frame-options'], 'SAMEORIGIN');
     });
 
-    await t.test('API should include RateLimit headers for DDoS mitigation', async () => {
+    await t.test('API should include RateLimit headers', async () => {
         const res = await request(app).get('/api/health');
         assert.ok(res.headers['ratelimit-limit'], 'RateLimit-Limit header present');
         assert.ok(res.headers['ratelimit-remaining'], 'RateLimit-Remaining header present');

@@ -17,7 +17,7 @@ app.use(helmet({
     crossOriginResourcePolicy: false,
 }))
 
-// DDoS Protection & Global Rate Limiting
+// API Rate Limiting & Traffic Management
 const globalLimiter = rateLimit({
     windowMs: 15 * 60 * 1000, // 15 minutes
     max: 1500, // Limit each IP to 1500 requests per 15 minutes
@@ -27,7 +27,7 @@ const globalLimiter = rateLimit({
 })
 app.use('/api', globalLimiter)
 
-// Stricter Rate Limiting for Authentication (Brute Force Protection)
+// Authentication Rate Limiting
 const authLimiter = rateLimit({
     windowMs: 15 * 60 * 1000,
     max: 50, // 50 attempts per 15 minutes

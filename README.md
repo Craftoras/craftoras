@@ -1,4 +1,4 @@
-# Craftoras 🛍️✨
+# Craftoras
 
 [![CI / Continuous Integration](https://github.com/Craftoras/craftoras/actions/workflows/ci.yml/badge.svg)](https://github.com/Craftoras/craftoras/actions/workflows/ci.yml)
 [![Security & CodeQL](https://github.com/Craftoras/craftoras/actions/workflows/security.yml/badge.svg)](https://github.com/Craftoras/craftoras/actions/workflows/security.yml)
@@ -11,169 +11,169 @@
 [![Docker Ready](https://img.shields.io/badge/Docker-Compose%20Ready-2496ED.svg?logo=docker)](docker-compose.yml)
 [![DOI](https://zenodo.org/badge/1460295878.svg)](https://zenodo.org/badge/latestdoi/1460295878)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Security Policy](https://img.shields.io/badge/Security-Policy%20Enforced-red.svg)](SECURITY.md)
 [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 [![Project Lead](https://img.shields.io/badge/Lead-Dar%20Rehan%20Rasool-0284c7.svg)](https://github.com/darrehanrasool)
 
-> **Craftoras** is an enterprise-ready, multi-vendor e-commerce platform engineered to connect authentic Kashmiri artisanal heritage—such as hand-spun Pashmina shawls, silk hand-knotted carpets, walnut wood carvings, papier-mâché, and crewel embroidery—with global collectors and patrons.
+> **Craftoras** is a modern multi-vendor e-commerce platform engineered to connect authentic Kashmiri artisanal heritage—such as hand-spun Pashmina shawls, silk hand-knotted carpets, walnut wood carvings, papier-mâché, and crewel embroidery—with global patrons and connoisseurs.
 
 ---
 
-## 📑 Table of Contents
+## Table of Contents
 
-- [System Architecture](#-system-architecture)
-- [DDoS Mitigation & Security Architecture](#-ddos-mitigation--security-architecture)
-- [Monorepo Structure](#-monorepo-structure)
-- [Core Features](#-core-features)
-- [Prerequisites](#-prerequisites)
-- [Quick Start & Local Development](#-quick-start--local-development)
-- [Docker Compose Deployment](#-docker-compose-deployment)
-- [Environment Variables](#-environment-variables)
-- [API Reference](#-api-reference)
-- [Automated Testing & Quality Assurance](#-automated-testing--quality-assurance)
-- [CI/CD Pipelines](#-cicd-pipelines)
-- [Contributing & Governance](#-contributing--governance)
-- [Authors & License](#-authors--license)
+- [About Craftoras](#about-craftoras)
+- [Featured Artisanal Collections](#featured-artisanal-collections)
+- [System Architecture](#system-architecture)
+- [Monorepo Structure](#monorepo-structure)
+- [Core Modules & Capabilities](#core-modules--capabilities)
+- [Technology Stack](#technology-stack)
+- [Prerequisites](#prerequisites)
+- [Quick Start & Local Development](#quick-start--local-development)
+- [Docker Compose Deployment](#docker-compose-deployment)
+- [Environment Configuration](#environment-configuration)
+- [REST API Reference](#rest-api-reference)
+- [Automated Testing & Quality Assurance](#automated-testing--quality-assurance)
+- [CI/CD Pipelines](#cicd-pipelines)
+- [Contributing & Governance](#contributing--governance)
+- [Authors & License](#authors--license)
 
 ---
 
-## 🏛 System Architecture
+## About Craftoras
 
-The platform follows a decoupled, three-tier microservice/monorepo architecture with real-time bidirectional WebSocket orchestration:
+Craftoras bridges authentic centuries-old Himalayan artisan traditions with modern digital commerce. Handcrafted goods from master weavers, woodcarvers, and artisans often struggle with supply chain opacity, counterfeit challenges, and middleman markups. 
+
+Craftoras empowers local master craftspeople with:
+- **Direct Artisan-to-Consumer Market Access**: Dedicated seller storefronts and inventory control.
+- **Cultural Preservation**: Curated craft storytelling, artisan profiles, and provenance transparency.
+- **Fair Economic Value**: Transparent payout management and digital wallets for artisans.
+- **Real-Time Customer Connection**: Direct messaging between patrons and artisan workshops.
+
+---
+
+## Featured Artisanal Collections
+
+- **Pashmina & Cashmere**: Hand-spun on traditional spinning wheels (*charkha*) and woven on centuries-old handlooms from Changthangi goat fiber.
+- **Hand-Knotted Carpets**: Intricate silk-on-silk and wool rugs patterned with traditional floral, hunting, and medallion motifs.
+- **Kashmir Walnut Wood Carving**: Deeply hand-chiseled furniture, screens, and keepsake boxes crafted from seasoned wild walnut trees.
+- **Papier-Mâché Artistry**: Finely molded paper pulp hand-painted with pure gold leaf and botanical gouache paints (*Naqashi*).
+- **Crewel & Aari Needlework**: Hand-embroidered floral tapestries, cushion covers, and wearables crafted with pointed hooked needles (*aari*).
+
+---
+
+## System Architecture
+
+Craftoras operates as a decoupled three-tier monorepo architecture:
 
 ```mermaid
 graph TD
     subgraph Clients ["Client Layer"]
-        Storefront["Customer Storefront (React 18 / Tailwind) :3000"]
-        Dashboard["Multi-Vendor & Admin Portal (React 18 / ApexCharts) :3001"]
+        Storefront["Customer Storefront<br/>(React 18 / Tailwind CSS)<br/>Port :3000"]
+        Dashboard["Artisan & Admin Portal<br/>(React 18 / ApexCharts)<br/>Port :3001"]
     end
 
-    subgraph SecurityGateway ["Security & Ingress Gateway"]
-        DDoSLimiter["DDoS Rate Limiter & IP Throttling"]
-        AuthLimiter["Brute-Force Auth Protection"]
-        HelmetHeaders["Helmet Security & CSP Headers"]
-        CORSFilter["Strict Origin Whitelisting"]
+    subgraph Gateway ["Application & Ingress Layer"]
+        ExpressApp["Express.js API Gateway<br/>Port :5000 / :5001"]
+        AuthMiddleware["JWT Authentication & RBAC<br/>(Admin, Seller, Customer)"]
+        SocketBroker["Socket.IO Event Broker<br/>(Live Chat & Online Status)"]
+        UploadEngine["Cloudinary Media Gateway<br/>(High-Res Product Imagery)"]
+        StripeEngine["Stripe Payment Gateway<br/>(Secure PaymentIntents)"]
     end
 
-    subgraph BackendCore ["Core Backend Services (:5000)"]
-        APIGateway["Express.js API Router"]
-        SocketEngine["Socket.IO Real-time Messaging Engine"]
-        JWTAuth["JWT Stateless Authentication & RBAC"]
-        PaymentEngine["Stripe Payment Processing"]
-        MediaService["Cloudinary Media Gateway"]
+    subgraph Storage ["Data & Persistence Layer"]
+        MongoStore[("MongoDB Database<br/>(Products, Orders, Reviews, Users)")]
     end
 
-    subgraph DataStore ["Persistence Layer"]
-        MongoDB[("MongoDB Database")]
-    end
+    Storefront -->|HTTP REST / Cookies| ExpressApp
+    Dashboard -->|HTTP REST / Cookies| ExpressApp
+    Storefront <-->|WebSocket Stream| SocketBroker
+    Dashboard <-->|WebSocket Stream| SocketBroker
 
-    Storefront -->|HTTP / REST| DDoSLimiter
-    Dashboard -->|HTTP / REST| DDoSLimiter
-    Storefront <-->|WebSocket| SocketEngine
-    Dashboard <-->|WebSocket| SocketEngine
-
-    DDoSLimiter --> AuthLimiter --> HelmetHeaders --> CORSFilter --> APIGateway
-    APIGateway --> JWTAuth
-    APIGateway --> PaymentEngine
-    APIGateway --> MediaService
-    APIGateway --> MongoDB
-    SocketEngine --> MongoDB
+    ExpressApp --> AuthMiddleware
+    ExpressApp --> StripeEngine
+    ExpressApp --> UploadEngine
+    ExpressApp --> MongoStore
+    SocketBroker --> MongoStore
 ```
 
 ---
 
-## 🛡 DDoS Mitigation & Security Architecture
-
-Craftoras implements defense-in-depth security principles engineered to resist high-volume Denial of Service (DoS/DDoS), brute-force attacks, and common web application vulnerabilities (OWASP Top 10):
-
-### 1. Layer 7 DDoS Rate Limiting
-- **Global API Throttling**: Protected by `express-rate-limit` allowing up to **1,500 requests per 15-minute window** per client IP on `/api/*` endpoints.
-- **Strict Authentication Limiting**: Brute-force and credential-stuffing prevention on `/api/admin-login`, `/api/seller-login`, and `/api/customer/*` throttled to **50 requests per 15-minute window** per IP.
-- **Rate Limit Headers**: Returns RFC-compliant `RateLimit-Limit`, `RateLimit-Remaining`, and `RateLimit-Reset` HTTP headers for client back-off signaling.
-
-### 2. HTTP Flood & Resource Exhaustion Defense
-- **Payload Size Limits**: Strict 10MB body parser ceiling (`bodyParser.json({ limit: '10mb' })`) preventing memory exhaustion attacks via oversized JSON or URL-encoded payloads.
-- **Fail-Fast Database Queries**: Mongoose connection includes `serverSelectionTimeoutMS: 3000` to prevent thread hanging during network partitioning.
-
-### 3. Header Hardening (Helmet)
-- Enforces `X-Content-Type-Options: nosniff` to defend against MIME-type sniffing.
-- Enforces `X-Frame-Options: SAMEORIGIN` to thwart clickjacking.
-- Cross-Origin Resource Policy (CORP) isolation.
-
-### 4. Zero-Trust Access Control
-- **Stateless JWT**: Ephemeral 7-day cryptographically signed JSON Web Tokens stored in secure HTTP-only cookies.
-- **Role-Based Access Control (RBAC)**: Enforced via `authMiddleware` verifying separate scopes for `admin`, `seller`, and `customer`.
-- **Bcrypt Salt Hashing**: Password hashes generated with 10 salt rounds.
-
----
-
-## 📂 Monorepo Structure
+## Monorepo Structure
 
 ```text
 craftoras/
 ├── .github/
 │   └── workflows/
-│       ├── ci.yml                 # Automated CI tests & builds for all 3 tiers
-│       └── security.yml           # CodeQL static analysis & npm vulnerability audit
+│       ├── ci.yml                 # Matrix testing & production builds for all 3 tiers
+│       └── security.yml           # CodeQL static analysis & dependency audit
 ├── backend/                       # Express.js REST API & Socket.IO server
-│   ├── controllers/               # Business logic (auth, dashboard, home, order, payment, chat)
-│   ├── middlewares/               # JWT authentication & authorization middleware
-│   ├── models/                    # Mongoose database schemas & models
-│   ├── routes/                    # Express modular route definitions
-│   ├── utiles/                    # Database connection, tokens, pagination helpers
-│   ├── tests/                     # Automated API, security & unit tests (node:test)
+│   ├── controllers/               # E-commerce controllers (auth, catalog, cart, orders, payments, chat)
+│   ├── middlewares/               # JWT authentication & role-based route guards
+│   ├── models/                    # Mongoose schemas (product, order, category, seller, review, wallet)
+│   ├── routes/                    # Modular Express routes
+│   ├── utiles/                    # Database connection, query filters, tokens, responses
+│   ├── tests/                     # Automated unit and API test suites (node:test)
 │   ├── Dockerfile                 # Container image specification
 │   ├── .env.example               # Backend environment variable template
-│   └── server.js                  # Application entry point with DDoS protection
+│   └── server.js                  # Application server entrypoint
 ├── dashboard/                     # Multi-vendor Admin & Artisan seller portal
 │   ├── src/
 │   │   ├── api/                   # Axios API client
-│   │   ├── layout/                # Responsive navigation & sidebar layout
-│   │   ├── router/                # Role-based route definitions (admin vs seller)
+│   │   ├── layout/                # Responsive navigation & dashboard layout
+│   │   ├── router/                # Role-based routes (admin vs seller views)
 │   │   ├── store/                 # Redux Toolkit state slices & async thunks
-│   │   └── views/                 # Analytics, Category, Product, Order & Chat views
+│   │   └── views/                 # Order fulfillment, product manager, analytics & chat
 │   ├── Dockerfile                 # Production multi-stage Docker build with Nginx
-│   └── package.json               # Scripts & dependencies
+│   └── package.json               # Dashboard scripts & dependencies
 ├── frontend/                      # Customer-facing e-commerce storefront
 │   ├── src/
 │   │   ├── api/                   # Axios API client
-│   │   ├── components/            # Reusable UI widgets (Banner, Reviews, Carousel)
+│   │   ├── components/            # Reusable UI components (Carousels, Reviews, Ratings)
 │   │   ├── pages/                 # Home, Shops, Product Details, Cart, Checkout, Profile
 │   │   └── store/                 # Redux Toolkit state slices
 │   ├── Dockerfile                 # Production multi-stage Docker build with Nginx
-│   └── package.json               # Scripts & dependencies
+│   └── package.json               # Storefront scripts & dependencies
 ├── .gitignore                     # Monorepo ignore rules
-├── docker-compose.yml             # Orchestration for MongoDB, Backend, Frontend, Dashboard
+├── docker-compose.yml             # Complete stack orchestration (MongoDB + 3 Tiers)
 ├── package.json                   # Root monorepo orchestration scripts
 ├── CODE_OF_CONDUCT.md             # Contributor Covenant 2.1
-├── CONTRIBUTING.md                # Development standards & PR process
+├── CONTRIBUTING.md                # Development guide & PR standards
 ├── LICENSE                        # MIT Open Source License
-└── SECURITY.md                    # Vulnerability reporting protocols
+└── SECURITY.md                    # Responsible disclosure guidelines
 ```
 
 ---
 
-## 🌟 Core Features
+## Core Modules & Capabilities
 
-| Module | Feature Capabilities |
+| Module | Core Functionality |
 | :--- | :--- |
-| **Storefront (`frontend`)** | Product discovery, filtering by price/rating/category, rich artisan showcase, shopping cart, customer wishlist, Stripe card checkout, real-time seller chat. |
-| **Dashboard (`dashboard`)** | **Admin**: Platform sales metrics, seller KYC verification, category management, payout clearance.<br>**Artisan/Seller**: Product inventory management, discount management, order fulfillment, Stripe payout onboarding, customer messaging. |
-| **Backend Core (`backend`)** | Modular REST API, Socket.IO real-time event broker, Cloudinary CDN integration, JWT cookie management, rate-limiting DDoS filters. |
+| **Customer Storefront (`frontend`)** | • Multi-facet product filtering (category, price range, ratings, search keyword)<br/>• Interactive product detail pages with multi-image gallery and customer reviews<br/>• Shopping cart and persistent customer wishlist<br/>• Multi-step shipping and Stripe card checkout<br/>• Customer order tracking and invoice history<br/>• Direct real-time chat with artisan seller |
+| **Artisan Seller Portal (`dashboard`)** | • Product catalog management (add, edit, discount, multi-image upload)<br/>• Order management, status updates (pending, processing, dispatched, delivered)<br/>• Payout request management and Stripe Connect balance monitoring<br/>• Live customer chat widget for product inquiries and custom commissions |
+| **Marketplace Admin Portal (`dashboard`)** | • Global marketplace sales, revenue, and active seller analytics<br/>• Artisan seller onboarding and KYC status verification<br/>• Category and subcategory taxonomy management<br/>• Seller payout approval and withdrawal clearing<br/>• Admin-to-seller support communications |
+| **Core API Gateway (`backend`)** | • RESTful modular API endpoints for catalog, auth, orders, and payments<br/>• Socket.IO bidirectional event broker for real-time customer/seller messaging<br/>• Cloudinary CDN integration for automated image optimization and delivery<br/>• JWT authentication stored in HTTP-only cookies with role authorization<br/>• Embedded MongoDB fallback for zero-dependency instant local execution |
 
 ---
 
-## 📋 Prerequisites
+## Technology Stack
 
-Ensure the following runtimes and tools are installed:
-- **Node.js**: `v20.x` or higher (`v24.x` supported)
+- **Frontend & Dashboard**: React 18, React Router v6, Redux Toolkit, Tailwind CSS, ApexCharts, React Icons, Swiper
+- **Backend API**: Node.js, Express.js 4, Socket.IO 4, Mongoose 8, JSON Web Tokens, Bcrypt
+- **Cloud & Integrations**: Cloudinary (Media Processing), Stripe (Card Checkout & Payouts)
+- **Database**: MongoDB 7 / MongoDB Atlas (with embedded in-memory database fallback for local dev)
+- **DevOps & Containers**: Docker, Docker Compose, Nginx, GitHub Actions
+
+---
+
+## Prerequisites
+
+- **Node.js**: `v20.x` or higher (`v22.x` and `v24.x` supported)
 - **npm**: `v10.x` or higher
-- **MongoDB**: `v6.0+` or MongoDB Atlas cloud instance
-- **Docker & Docker Compose** (Optional, for containerized execution)
+- **MongoDB**: `v6.0+` (or let the app automatically boot its embedded database)
+- **Docker & Docker Compose** (Optional, for containerized deployment)
 
 ---
 
-## 🚀 Quick Start & Local Development
+## Quick Start & Local Development
 
 ### 1. Clone the Repository
 ```bash
@@ -187,45 +187,47 @@ cp backend/.env.example backend/.env
 cp frontend/.env.example frontend/.env
 cp dashboard/.env.example dashboard/.env
 ```
-*(Fill in your MongoDB connection string and credentials in `backend/.env`)*
 
 ### 3. Install Dependencies
-Run in separate terminals or across workspaces:
+Run across each tier:
 ```bash
-# Backend
+# Backend dependencies
 cd backend && npm install
 
-# Multi-Vendor Dashboard
+# Multi-Vendor Dashboard dependencies
 cd ../dashboard && npm install
 
-# Customer Storefront
+# Customer Storefront dependencies
 cd ../frontend && npm install
+
+# Return to repository root
+cd ..
 ```
 
 ### 4. Run the Full Application Suite
 
-From the repository root:
+From the root repository directory:
 ```bash
-# Terminal 1: Backend API Server (Runs on :5000, falls back to :5001 if :5000 is occupied)
+# Terminal 1: Backend API Gateway
 npm run start:backend
 
-# Terminal 2: Multi-Vendor Dashboard (Runs on :3001)
+# Terminal 2: Multi-Vendor & Admin Dashboard
 npm run start:dashboard
 
-# Terminal 3: Customer Storefront (Runs on :3000)
+# Terminal 3: Customer Storefront
 npm run start:frontend
 ```
 
-Now open:
+Now navigate to:
 - **Storefront**: [http://localhost:3000](http://localhost:3000)
-- **Seller/Admin Dashboard**: [http://localhost:3001](http://localhost:3001)
-- **Backend Health Check**: [http://localhost:5000/api/health](http://localhost:5000/api/health)
+- **Artisan / Admin Dashboard**: [http://localhost:3001](http://localhost:3001)
+- **Backend Health Check**: [http://localhost:5001/api/health](http://localhost:5001/api/health)
 
 ---
 
-## 🐳 Docker Compose Deployment
+## Docker Compose Deployment
 
-Run the entire platform (MongoDB + Backend + Frontend + Dashboard) with one command:
+Run the complete multi-tier application stack with a single command:
 
 ```bash
 docker compose up --build
@@ -238,113 +240,120 @@ docker compose down
 
 ---
 
-## ⚙️ Environment Variables
+## Environment Configuration
 
 ### Backend (`backend/.env`)
 | Variable | Description | Default |
 | :--- | :--- | :--- |
-| `PORT` | API server listen port | `5000` |
+| `PORT` | API server listening port | `5001` |
 | `DB_URL` | MongoDB connection URI | `mongodb://127.0.0.1:27017/ec` |
-| `SECRET` | JWT signing secret | `your_secret_key` |
-| `cloud_name` | Cloudinary cloud identifier | `dbx` |
-| `api_key` | Cloudinary API key | `5833` |
-| `api_secret` | Cloudinary API secret | `yY0` |
-| `STRIPE_KEY` | Stripe secret key for payment intents | `sk_test_...` |
-| `CLIENT_URL` | Frontend origin for CORS | `http://localhost:3000` |
+| `SECRET` | JWT token signing secret | `your_jwt_secret` |
+| `cloud_name` | Cloudinary cloud identifier | `your_cloudinary_cloud_name` |
+| `api_key` | Cloudinary API key | `your_cloudinary_api_key` |
+| `api_secret` | Cloudinary API secret | `your_cloudinary_api_secret` |
+| `STRIPE_KEY` | Stripe secret key for card payment intents | `sk_test_...` |
+| `CLIENT_URL` | Client origin allowed for CORS | `http://localhost:3000` |
 
 ### Frontend & Dashboard (`.env`)
 | Variable | Description | Default |
 | :--- | :--- | :--- |
-| `REACT_APP_API_URL` | Backend REST API endpoint | `http://localhost:5000` |
+| `REACT_APP_API_URL` | Backend REST API endpoint URL | `http://localhost:5001` |
 | `REACT_APP_STRIPE_KEY` | Stripe publishable key | `pk_test_...` |
-| `PORT` | Frontend/Dashboard port | `3000` (frontend) / `3001` (dashboard) |
+| `PORT` | Local development port | `3000` (storefront) / `3001` (dashboard) |
 
 ---
 
-## 🔌 API Reference
+## REST API Reference
 
 ### Health & System
 | Method | Endpoint | Description |
 | :--- | :--- | :--- |
-| `GET` | `/` | API welcome check |
-| `GET` | `/api/health` | Service uptime and health telemetry |
+| `GET` | `/` | API server greeting |
+| `GET` | `/api/health` | Service uptime and status |
 
-### Authentication & Authorization
-| Method | Endpoint | Description | Rate Limit |
-| :--- | :--- | :--- | :--- |
-| `POST` | `/api/admin-login` | Admin portal authentication | 50 req / 15 min |
-| `POST` | `/api/seller-login` | Artisan seller login | 50 req / 15 min |
-| `POST` | `/api/seller-register` | Artisan seller registration | 50 req / 15 min |
-| `POST` | `/api/customer/customer-login` | Customer login | 50 req / 15 min |
-| `POST` | `/api/customer/customer-register` | Customer account registration | 50 req / 15 min |
-| `GET` | `/api/get-user` | Retrieve authenticated user profile | 1,500 req / 15 min |
-
-### Catalog & Commerce
+### Authentication & Profiles
 | Method | Endpoint | Description |
 | :--- | :--- | :--- |
-| `GET` | `/api/home/get-categorys` | Retrieve all handicraft categories |
-| `GET` | `/api/home/get-products` | Fetch featured, top-rated & latest products |
-| `GET` | `/api/home/query-products` | Advanced search, category and price filtering |
-| `GET` | `/api/home/product-details/:slug` | Retrieve single product with reviews & related items |
-| `POST` | `/api/home/product/add-to-card` | Add item to customer shopping cart |
-| `GET` | `/api/home/product/get-card-product/:userId` | Get customer cart items & totals |
+| `POST` | `/api/admin-login` | Admin portal authentication |
+| `POST` | `/api/seller-login` | Artisan seller authentication |
+| `POST` | `/api/seller-register` | Artisan seller account registration |
+| `POST` | `/api/customer/customer-login` | Customer login |
+| `POST` | `/api/customer/customer-register` | Customer account registration |
+| `GET` | `/api/get-user` | Retrieve active authenticated user profile |
+
+### Catalog & Showcase
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| `GET` | `/api/home/get-categorys` | List all craft categories |
+| `GET` | `/api/home/get-products` | Fetch featured, top-rated and latest craft items |
+| `GET` | `/api/home/query-products` | Filter products by category, rating, price, keyword |
+| `GET` | `/api/home/product-details/:slug` | Retrieve single product details with reviews |
+| `POST` | `/api/home/customer/submit-review` | Submit customer product review and rating |
+
+### Cart & Orders
+| Method | Endpoint | Description |
+| :--- | :--- | :--- |
+| `POST` | `/api/home/product/add-to-card` | Add product to customer shopping cart |
+| `GET` | `/api/home/product/get-card-product/:userId` | Retrieve customer cart items and totals |
+| `DELETE`| `/api/home/product/delete-card-product/:card_id` | Remove item from customer cart |
 | `POST` | `/api/order/create-payment` | Initialize Stripe PaymentIntent |
+| `GET` | `/api/order/confirm/:orderId` | Confirm order status upon payment completion |
 
 ---
 
-## 🧪 Automated Testing & Quality Assurance
+## Automated Testing & Quality Assurance
 
-Craftoras enforces rigorous test automation across backend APIs and frontend user interfaces:
+Automated test suites ensure reliability across the backend APIs and frontend user interfaces:
 
 ```bash
 # Run all tests across the monorepo
 npm test
 
-# Run backend unit, security & route tests
+# Run backend unit, route & auth tests
 npm run test:backend
 
-# Run dashboard component & Redux tests
+# Run dashboard portal tests
 npm run test:dashboard
 
-# Run frontend customer storefront tests
+# Run customer storefront tests
 npm run test:frontend
 ```
 
 ---
 
-## 🔄 CI/CD Pipelines
+## CI/CD Pipelines
 
-Our automated GitHub Actions workflows ensure continuous code quality and security verification:
+Automated GitHub Actions workflows run on every push and pull request targeting `main`:
 
 1. **Continuous Integration (`.github/workflows/ci.yml`)**:
    - Executes matrix tests across Node.js versions `20.x` and `22.x`.
-   - Validates backend route assertions, rate limiters, and authentication logic.
-   - Executes React component tests and verifies production production builds for both `frontend` and `dashboard`.
+   - Runs backend API and unit test suites.
+   - Runs React component tests and builds production bundles for both `frontend` and `dashboard`.
 
 2. **Security & CodeQL Analysis (`.github/workflows/security.yml`)**:
-   - Performs automated AST static analysis via GitHub CodeQL for JavaScript/TypeScript.
-   - Executes dependency audits (`npm audit`) against known high/critical CVEs.
+   - Executes GitHub CodeQL static code analysis for JavaScript and TypeScript.
+   - Runs automated dependency vulnerability audits (`npm audit`).
 
 ---
 
-## 🤝 Contributing & Governance
+## Contributing & Governance
 
-Contributions to empower authentic Kashmiri artisans and enhance this platform are welcome!
+We welcome contributions to help empower Kashmiri artisans and improve the Craftoras platform!
 
-1. Read our [Code of Conduct](CODE_OF_CONDUCT.md).
-2. Follow the [Contributing Guidelines](CONTRIBUTING.md).
-3. Use Conventional Commits (`feat:`, `fix:`, `docs:`, `security:`).
-4. Ensure `npm test` passes before submitting your Pull Request.
+1. Please read our [Code of Conduct](CODE_OF_CONDUCT.md).
+2. Check the [Contributing Guidelines](CONTRIBUTING.md) for branch naming and pull request steps.
+3. Follow [Conventional Commits](https://www.conventionalcommits.org/) (`feat:`, `fix:`, `docs:`, `refactor:`, `test:`).
+4. Verify that `npm test` passes locally before submitting your Pull Request.
 
 ---
 
-## 👥 Authors & Maintainers
+## Authors & Maintainers
 
 - **[Dar Rehan Rasool](https://github.com/darrehanrasool)** — *Project Architect & Maintainer*
 - **[Shafiya Bashir](https://github.com/shafiyabashirpampori)** — *Contributor*
 
 ---
 
-## 📄 License
+## License
 
 This project is licensed under the terms of the [MIT License](LICENSE).
