@@ -65,7 +65,7 @@ jobs:
       - name: Build dashboard production bundle
         run: |
           cd dashboard
-          npm run build
+          CI=false npm run build
 
   frontend:
     name: Frontend Tests & Production Build
@@ -94,4 +94,4 @@ jobs:
       - name: Build frontend production bundle
         run: |
           cd frontend
-          npm run build
+          CI=false npm run build

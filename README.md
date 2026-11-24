@@ -11,30 +11,60 @@
 [![Docker Ready](https://img.shields.io/badge/Docker-Compose%20Ready-2496ED.svg?logo=docker)](docker-compose.yml)
 [![DOI](https://zenodo.org/badge/1460295878.svg)](https://zenodo.org/badge/latestdoi/1460295878)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
+[![Supervised by](https://img.shields.io/badge/Supervised%20by-Dr.%20Muzafer%20Rasool-purple.svg)](https://github.com/darrehanrasool)
 [![Project Lead](https://img.shields.io/badge/Lead-Dar%20Rehan%20Rasool-0284c7.svg)](https://github.com/darrehanrasool)
+[![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg)](CONTRIBUTING.md)
 
 > **Craftoras** is a modern multi-vendor e-commerce platform engineered to connect authentic Kashmiri artisanal heritage—such as hand-spun Pashmina shawls, silk hand-knotted carpets, walnut wood carvings, papier-mâché, and crewel embroidery—with global patrons and connoisseurs.
 
 ---
 
+## 🖥️ Storefront Interface
+
+<div align="center">
+  <img src="assets/storefront.png" alt="Craftoras Customer Storefront & Artisan Platform" width="100%">
+  <p><em>Craftoras Customer Storefront — Responsive artisan marketplace interface featuring multi-category navigation, search filters, craft showcases, cart and wishlist management, and live artisan communication.</em></p>
+</div>
+
+---
+
 ## Table of Contents
 
-- [About Craftoras](#about-craftoras)
-- [Featured Artisanal Collections](#featured-artisanal-collections)
-- [System Architecture](#system-architecture)
-- [Monorepo Structure](#monorepo-structure)
-- [Core Modules & Capabilities](#core-modules--capabilities)
-- [Technology Stack](#technology-stack)
-- [Prerequisites](#prerequisites)
-- [Quick Start & Local Development](#quick-start--local-development)
-- [Docker Compose Deployment](#docker-compose-deployment)
-- [Environment Configuration](#environment-configuration)
-- [REST API Reference](#rest-api-reference)
-- [Automated Testing & Quality Assurance](#automated-testing--quality-assurance)
-- [CI/CD Pipelines](#cicd-pipelines)
-- [Contributing & Governance](#contributing--governance)
-- [Authors & License](#authors--license)
+1. [Project Team & Authorship](#-project-team--authorship)
+2. [About Craftoras](#about-craftoras)
+3. [Featured Artisanal Collections](#featured-artisanal-collections)
+4. [System Architecture](#system-architecture)
+5. [Monorepo Structure](#monorepo-structure)
+6. [Core Modules & Capabilities](#core-modules--capabilities)
+7. [Technology Stack](#technology-stack)
+8. [Prerequisites](#prerequisites)
+9. [Quick Start & Local Development](#quick-start--local-development)
+10. [Docker Compose Deployment](#docker-compose-deployment)
+11. [Environment Configuration](#environment-configuration)
+12. [REST API Reference](#rest-api-reference)
+13. [Automated Testing & Quality Assurance](#automated-testing--quality-assurance)
+14. [CI/CD Pipelines](#cicd-pipelines)
+15. [Contributing & Governance](#contributing--governance)
+16. [Citation & Intellectual Property](#citation--intellectual-property)
+17. [License](#license)
+
+---
+
+## 👥 Project Team & Authorship
+
+This project and computational provenance platform is developed under faculty guidance and supervision:
+
+| Role | Name | Designation & Affiliation | Project & Engineering Contribution |
+| :--- | :--- | :--- | :--- |
+| **Faculty Research Supervisor** | **Dr. Muzafer Rasool\*** | Professor & Faculty Supervisor, Centre for Artificial Intelligence (CAI) | Project Conceptualization, Research Supervision & Strategic Architecture Direction |
+| **Project Lead & Architecture** | [**Dar Rehan Rasool**](https://github.com/darrehanrasool) | M.Tech Student, Centre for Artificial Intelligence, IUST | Full-Stack Platform Architecture, Multi-Vendor Engine, Real-time WebSockets & Payment Gateway |
+| **Contributing Student** | [**Muneeb Syed Shah**](https://github.com/muneebsyed-oss) | M.Tech Student, Centre for Artificial Intelligence, IUST | Marketplace Business Logic, Artisan Workflow Testing & Platform Engineering |
+| **Contributing Student** | [**Shafiya Bashir Pampori**](https://github.com/shafiyabashirpampori) | M.Tech Student, Centre for Artificial Intelligence, IUST | Artisan Metadata Modeling, Craft Taxonomy Curation & Quality Analysis |
+
+- **Academic Unit**: Centre for Artificial Intelligence (CAI)
+- **Institution**: Islamic University of Science and Technology (IUST), Awantipora, Jammu & Kashmir, India
+- **Copyright & Handle**: `@darrehanrasool` • [GitHub: darrehanrasool](https://github.com/darrehanrasool)
+- *\* Denotes corresponding/supervising senior faculty author.*
 
 ---
 
@@ -105,6 +135,8 @@ craftoras/
 │   └── workflows/
 │       ├── ci.yml                 # Matrix testing & production builds for all 3 tiers
 │       └── security.yml           # CodeQL static analysis & dependency audit
+├── assets/                        # Storefront and platform screenshot assets
+│   └── storefront.png             # Customer portal UI capture
 ├── backend/                       # Express.js REST API & Socket.IO server
 │   ├── controllers/               # E-commerce controllers (auth, catalog, cart, orders, payments, chat)
 │   ├── middlewares/               # JWT authentication & role-based route guards
@@ -135,7 +167,7 @@ craftoras/
 ├── .gitignore                     # Monorepo ignore rules
 ├── docker-compose.yml             # Complete stack orchestration (MongoDB + 3 Tiers)
 ├── package.json                   # Root monorepo orchestration scripts
-├── CODE_OF_CONDUCT.md             # Contributor Covenant 2.1
+├── CODE_OF_CONDUCT.md             # Community collaboration code & protocols
 ├── CONTRIBUTING.md                # Development guide & PR standards
 ├── LICENSE                        # MIT Open Source License
 └── SECURITY.md                    # Responsible disclosure guidelines
@@ -347,10 +379,22 @@ We welcome contributions to help empower Kashmiri artisans and improve the Craft
 
 ---
 
-## Authors & Maintainers
+## Citation & Intellectual Property
 
-- **[Dar Rehan Rasool](https://github.com/darrehanrasool)** — *Project Architect & Maintainer*
-- **[Shafiya Bashir](https://github.com/shafiyabashirpampori)** — *Contributor*
+If you use or reference the Craftoras platform or provenance architecture in your academic work, please cite:
+
+```bibtex
+@software{rasool2026craftoras,
+  author       = {Rasool, Muzafer and Rasool, Dar Rehan and Shah, Muneeb Syed and Pampori, Shafiya Bashir},
+  title        = {Craftoras: Intelligent Artisan Marketplace and Computational Provenance Platform},
+  month        = nov,
+  year         = 2026,
+  publisher    = {Zenodo},
+  version      = {1.0.0},
+  doi          = {10.5281/zenodo.1460295878},
+  url          = {https://github.com/Craftoras/craftoras}
+}
+```
 
 ---
 
