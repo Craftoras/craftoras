@@ -2,7 +2,7 @@
 
 ## 1. Purpose & Core Principles
 
-The Craftoras project is dedicated to fostering a professional, respectful, and dignified environment for all contributors, researchers, and developers. We believe that healthy collaboration, technical excellence, and mutual respect are essential to building impactful software.
+The Craftoras project is dedicated to fostering a professional, respectful, and dignified environment for all contributors, students, and developers. We believe that healthy collaboration, technical excellence, and mutual respect are essential to building impactful software.
 
 All contributors, maintainers, and community members are expected to adhere to this Code of Conduct across all project spaces, issue trackers, pull requests, and official communications.
 

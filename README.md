@@ -30,7 +30,7 @@
 
 ## Table of Contents
 
-1. [Project Team & Authorship](#-project-team--authorship)
+1. [Project Team & Supervision](#-project-team--supervision)
 2. [About Craftoras](#about-craftoras)
 3. [Featured Artisanal Collections](#featured-artisanal-collections)
 4. [System Architecture](#system-architecture)
@@ -45,18 +45,19 @@
 13. [Automated Testing & Quality Assurance](#automated-testing--quality-assurance)
 14. [CI/CD Pipelines](#cicd-pipelines)
 15. [Contributing & Governance](#contributing--governance)
-16. [Citation & Intellectual Property](#citation--intellectual-property)
-17. [License](#license)
+16. [Future Roadmap & Planned AI Integration](#future-roadmap--planned-ai-integration)
+17. [Citation](#citation)
+18. [License](#license)
 
 ---
 
-## 👥 Project Team & Authorship
+## 👥 Project Team & Supervision
 
-This project and computational provenance platform is developed under faculty guidance and supervision:
+This e-commerce platform is developed under faculty supervision:
 
 | Role | Name | Designation & Affiliation | Project & Engineering Contribution |
 | :--- | :--- | :--- | :--- |
-| **Faculty Research Supervisor** | **Dr. Muzafer Rasool\*** | Professor & Faculty Supervisor, Centre for Artificial Intelligence (CAI) | Project Conceptualization, Research Supervision & Strategic Architecture Direction |
+| **Faculty Supervisor** | **Dr. Muzafer Rasool\*** | Professor & Faculty Supervisor, Centre for Artificial Intelligence (CAI) | Project Guidance, Academic Supervision & Architecture Advisory |
 | **Project Lead & Architecture** | [**Dar Rehan Rasool**](https://github.com/darrehanrasool) | M.Tech Student, Centre for Artificial Intelligence, IUST | Full-Stack Platform Architecture, Multi-Vendor Engine, Real-time WebSockets & Payment Gateway |
 | **Contributing Student** | [**Muneeb Syed Shah**](https://github.com/muneebsyed-oss) | M.Tech Student, Centre for Artificial Intelligence, IUST | Marketplace Business Logic, Artisan Workflow Testing & Platform Engineering |
 | **Contributing Student** | [**Shafiya Bashir Pampori**](https://github.com/shafiyabashirpampori) | M.Tech Student, Centre for Artificial Intelligence, IUST | Artisan Metadata Modeling, Craft Taxonomy Curation & Quality Analysis |
@@ -64,7 +65,7 @@ This project and computational provenance platform is developed under faculty gu
 - **Academic Unit**: Centre for Artificial Intelligence (CAI)
 - **Institution**: Islamic University of Science and Technology (IUST), Awantipora, Jammu & Kashmir, India
 - **Copyright & Handle**: `@darrehanrasool` • [GitHub: darrehanrasool](https://github.com/darrehanrasool)
-- *\* Denotes corresponding/supervising senior faculty author.*
+- *\* Denotes supervising faculty mentor.*
 
 ---
 
@@ -74,7 +75,7 @@ Craftoras bridges authentic centuries-old Himalayan artisan traditions with mode
 
 Craftoras empowers local master craftspeople with:
 - **Direct Artisan-to-Consumer Market Access**: Dedicated seller storefronts and inventory control.
-- **Cultural Preservation**: Curated craft storytelling, artisan profiles, and provenance transparency.
+- **Cultural Preservation**: Curated craft storytelling, artisan profiles, and transparent workshop origins.
 - **Fair Economic Value**: Transparent payout management and digital wallets for artisans.
 - **Real-Time Customer Connection**: Direct messaging between patrons and artisan workshops.
 
@@ -379,14 +380,25 @@ We welcome contributions to help empower Kashmiri artisans and improve the Craft
 
 ---
 
-## Citation & Intellectual Property
+## Future Roadmap & Planned AI Integration
 
-If you use or reference the Craftoras platform or provenance architecture in your academic work, please cite:
+While Craftoras is currently an active full-stack multi-vendor e-commerce platform, our future development roadmap includes integrating intelligent verification models and capabilities to protect and promote authentic Kashmiri artisans:
+
+- 🔍 **AI Authenticity Detection Model**: Integrate deep learning vision models to detect authentic Kashmiri craft products (such as micro-fiber weave pattern classification to distinguish 100% pure Pashmina from synthetic/machine blends, and knot-density analysis for hand-knotted silk carpets).
+- 🏷️ **Geographical Indication (GI) Validation**: Verification pipelines and attestation badges for government-certified GI craft products.
+- 🎙️ **Multilingual Artisan Voice Assistant**: Voice-enabled catalog search and artisan store management in Kashmiri and Urdu.
+- 📊 **Intelligent Craft Pricing Engine**: Fair pricing recommendations factoring in artisanal labor hours, weave complexity, and raw material index.
+
+---
+
+## Citation
+
+If you reference the Craftoras project in your academic or technical work, please cite:
 
 ```bibtex
 @software{rasool2026craftoras,
   author       = {Rasool, Muzafer and Rasool, Dar Rehan and Shah, Muneeb Syed and Pampori, Shafiya Bashir},
-  title        = {Craftoras: Intelligent Artisan Marketplace and Computational Provenance Platform},
+  title        = {Craftoras: Multi-Vendor E-Commerce Platform for Kashmiri Artisanal Crafts},
   month        = nov,
   year         = 2026,
   publisher    = {Zenodo},

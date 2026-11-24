@@ -1,6 +1,6 @@
 {
-  "title": "Craftoras: Intelligent Artisan Marketplace and Computational Provenance Platform",
-  "description": "A decentralized and intelligent platform integrating computational verification, supply chain provenance, and e-commerce for artisanal crafts.",
+  "title": "Craftoras: Multi-Vendor E-Commerce Platform for Kashmiri Artisanal Crafts",
+  "description": "A full-stack multi-vendor e-commerce platform connecting authentic Kashmiri artisans with global customers.",
   "creators": [
     {
       "name": "Rasool, Muzafer",
@@ -24,8 +24,9 @@
   "license": "MIT",
   "keywords": [
     "e-commerce",
-    "provenance",
-    "artisan-platform",
-    "intelligent-systems"
+    "multi-vendor",
+    "artisan-marketplace",
+    "kashmiri-crafts",
+    "mern-stack"
   ]
 }

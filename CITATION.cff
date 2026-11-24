@@ -1,6 +1,6 @@
 cff-version: 1.2.0
-message: "If you use this platform or software in your research, please cite it as below."
-title: "Craftoras: Intelligent Artisan Marketplace and Computational Provenance Platform"
+message: "If you reference or use this software project, please cite it as below."
+title: "Craftoras: Multi-Vendor E-Commerce Platform for Kashmiri Artisanal Crafts"
 version: 1.0.0
 date-released: 2026-11-22
 url: "https://github.com/Craftoras/craftoras"
