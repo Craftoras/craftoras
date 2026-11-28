@@ -8,3 +8,11 @@ export const overrideStyle = {
 }
 const socketUrl = process.env.REACT_APP_API_URL || 'http://localhost:5001'
 export const socket = io(socketUrl)
+
+/**
+ * Validates that an image preview URL uses a safe scheme (blob:, http(s):, or relative /).
+ */
+export const safePreviewUrl = (url) => {
+    if (typeof url !== 'string') return ''
+    return /^(blob:|https?:\/\/|\/)/.test(url) ? url : ''
+}

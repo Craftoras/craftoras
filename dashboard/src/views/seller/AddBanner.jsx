@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { FaRegImage } from "react-icons/fa";
 import { PropagateLoader } from 'react-spinners';
-import { overrideStyle } from '../../utils/utils';
+import { overrideStyle, safePreviewUrl } from '../../utils/utils';
 import { useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { add_banner,get_banner,messageClear, update_banner } from '../../store/Reducers/bannerReducer';
@@ -76,7 +76,7 @@ const AddBanner = () => {
 
             {
                 imageShow && <div className='mb-4'>
-                    <img className='w-full h-[300px]' src={imageShow} alt="" />
+                    <img className='w-full h-[300px]' src={safePreviewUrl(imageShow)} alt="Banner preview" />
                 </div>
             }
 
@@ -110,7 +110,7 @@ const AddBanner = () => {
 
             {
                 imageShow && <div className='mb-4'>
-                    <img className='w-full h-[300px]' src={imageShow} alt="" />
+                    <img className='w-full h-[300px]' src={safePreviewUrl(imageShow)} alt="Banner preview" />
                 </div>
             }
 
