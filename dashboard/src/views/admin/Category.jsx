@@ -6,7 +6,7 @@ import { FaEdit, FaTrash } from 'react-icons/fa';
 import { FaImage } from "react-icons/fa"; 
 import { IoMdCloseCircle } from "react-icons/io";
 import { PropagateLoader } from 'react-spinners';
-import { overrideStyle } from '../../utils/utils';
+import { overrideStyle, safePreviewUrl } from '../../utils/utils';
 import { categoryAdd, messageClear,get_category,updateCategory,deleteCategory } from '../../store/Reducers/categoryReducer';
 import { useDispatch, useSelector } from 'react-redux';
 import toast from 'react-hot-toast';
@@ -200,7 +200,7 @@ const Category = () => {
                  <div>
                     <label className='flex justify-center items-center flex-col h-[238px] cursor-pointer border border-dashed hover:border-red-500 w-full border-[#d0d2d6]'  htmlFor="image">
                         {
-                          imageShow ? <img className='w-full h-full' src={imageShow} /> : <>
+                          imageShow ? <img className='w-full h-full' src={safePreviewUrl(imageShow)} alt='Category preview' /> : <>
                         <span><FaImage/> </span>
                         <span>Select Image</span> 
                           </>

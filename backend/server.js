@@ -3,7 +3,6 @@ const express = require('express')
 const app = express()
 const cors = require('cors')
 const bodyParser = require('body-parser')
-const cookieParser = require('cookie-parser')
 const helmet = require('helmet')
 const rateLimit = require('express-rate-limit')
 const http = require('http')
@@ -152,10 +151,18 @@ io.on('connection', (soc) => {
     })
 })
 
-// Body Parser & Cookies
+// Body Parser & Origin-based CSRF Protection for State-Changing Requests
 app.use(bodyParser.json({ limit: '10mb' }))
 app.use(bodyParser.urlencoded({ extended: true, limit: '10mb' }))
-app.use(cookieParser())
+app.use((req, res, next) => {
+    if (process.env.NODE_ENV === 'production' && ['POST', 'PUT', 'PATCH', 'DELETE'].includes(req.method) && req.headers.cookie) {
+        const origin = req.headers.origin;
+        if (origin && !allowedOrigins.includes(origin)) {
+            return res.status(403).json({ error: 'CSRF validation failed: untrusted origin' });
+        }
+    }
+    next();
+})
 
 // Healthcheck & Welcome Routes
 app.get('/', (req, res) => res.send('Craftoras API Server is running'))

@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { get_category } from '../../store/Reducers/categoryReducer';
 import { add_product,messageClear } from '../../store/Reducers/productReducer';
 import { PropagateLoader } from 'react-spinners';
-import { overrideStyle } from '../../utils/utils';
+import { overrideStyle, safePreviewUrl } from '../../utils/utils';
 import toast from 'react-hot-toast';
  
 const AddProduct = () => {
@@ -227,7 +227,7 @@ const AddProduct = () => {
                {
                 imageShow.map((img,i) => <div className='h-[180px] relative'>
                     <label htmlFor={i}>
-                        <img className='w-full h-full rounded-sm' src={img.url} alt="" />
+                        <img className='w-full h-full rounded-sm' src={safePreviewUrl(img.url)} alt="Product preview" />
                     </label>
                     <input onChange={(e)=> changeImage(e.target.files[0],i) } type="file" id={i} className='hidden'/>
                     <span onClick={()=>removeImage(i)} className='p-2 z-10 cursor-pointer bg-slate-700 hover:shadow-lg hover:shadow-slate-400/50 text-white absolute top-1 right-1 rounded-full'><IoMdCloseCircle /></span>
