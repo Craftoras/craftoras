@@ -2,11 +2,13 @@ import React from 'react';
 import Carousel from 'react-multi-carousel';
 import { Link } from 'react-router-dom';
 import 'react-multi-carousel/lib/styles.css'
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
+import { DEFAULT_CRAFT_CATEGORIES } from '../data/defaultCrafts';
 
 const Categorys = () => {
  
     const {categorys} = useSelector(state => state.home)
+    const displayCategories = categorys && categorys.length > 0 ? categorys : DEFAULT_CRAFT_CATEGORIES
 
     const responsive = {
         superLargeDesktop: {
@@ -58,11 +60,11 @@ const Categorys = () => {
                     transitionDuration={500}
                 >
                 {
-                    categorys.map((c, i) => <Link className='h-[185px] border block' key={i} to={`/products?category=${c.name}`}>
+                    displayCategories.map((c, i) => <Link className='h-[185px] border block' key={i} to={`/products?category=${encodeURIComponent(c.name)}`}>
                         <div className='w-full h-full relative p-3'>
-                        <img src={c.image} alt="" />
-                        <div className='absolute bottom-6 w-full mx-auto font-bold left-0 flex justify-center items-center'>
-                         <span className='py-[2px] px-6 bg-[#3330305d] text-white'>{c.name}</span>
+                        <img className='w-full h-full object-cover' src={c.image} alt={c.name} />
+                        <div className='absolute bottom-6 w-full mx-auto font-bold left-0 flex justify-center items-center px-2'>
+                         <span className='py-[2px] px-4 bg-[#3330308c] text-white text-center text-sm'>{c.name}</span>
 
                         </div>
                         </div>

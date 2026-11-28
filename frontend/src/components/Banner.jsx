@@ -4,11 +4,13 @@ import { Link } from 'react-router-dom';
 import 'react-multi-carousel/lib/styles.css'
 import { useDispatch, useSelector } from 'react-redux';
 import { get_banners } from '../store/reducers/homeReducer';
+import { DEFAULT_BANNERS } from '../data/defaultCrafts';
 
 const Banner = () => {
 
     const dispatch = useDispatch()
     const {banners} = useSelector(state => state.home)
+    const displayBanners = banners && banners.length > 0 ? banners : DEFAULT_BANNERS
  
     const responsive = {
         superLargeDesktop: {
@@ -47,8 +49,8 @@ const Banner = () => {
                     responsive={responsive}
                 >
                 {
-                   banners.length > 0 && banners.map((b, i) => <Link key={i} to={`product/details/${b.link}`}>
-                        <img src={ b.banner} alt="" />
+                   displayBanners.map((b, i) => <Link key={i} to={`product/details/${b.link}`}>
+                        <img className='w-full h-[380px] md-lg:h-[260px] object-cover rounded-sm' src={b.banner} alt={`Craftoras showcase ${i + 1}`} />
                     </Link> )
                 }
                 </Carousel>        

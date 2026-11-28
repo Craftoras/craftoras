@@ -19,11 +19,21 @@
 
 ---
 
-## 🖥️ Storefront Interface
+## 🖥️ Live Platform Interfaces
 
 <div align="center">
   <img src="assets/storefront.png" alt="Craftoras Customer Storefront & Artisan Platform" width="100%">
-  <p><em>Craftoras Customer Storefront — Responsive artisan marketplace interface featuring multi-category navigation, search filters, craft showcases, cart and wishlist management, and live artisan communication.</em></p>
+  <p><em>Craftoras Customer Storefront — Responsive Kashmiri artisan marketplace featuring Pashmina, Hand-Knotted Carpets, Walnut Wood Carving, Papier-Mâché, and Crewel & Aari Needlework.</em></p>
+</div>
+
+<div align="center">
+  <img src="assets/client-chat.png" alt="Craftoras Client Live Chat Interface" width="100%">
+  <p><em>Real-Time Customer–Artisan Live Chat — Socket.IO-powered messaging between patrons and Kashmiri craft sellers.</em></p>
+</div>
+
+<div align="center">
+  <img src="assets/admin-dashboard.png" alt="Craftoras Admin & Artisan Dashboard" width="100%">
+  <p><em>Craftoras Admin & Seller Portal — Dedicated control center for artisan verification, catalog management, and order fulfillment.</em></p>
 </div>
 
 ---

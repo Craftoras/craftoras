@@ -79,15 +79,17 @@ class orderController{
                     products: storePor,
                     price:pri,
                     payment_status: 'unpaid',
-                    shippingInfo: 'Easy Main Warehouse',
+                    shippingInfo: 'Craftoras Main Warehouse',
                     delivery_status: 'pending',
                     date: tempDate
                 }) 
             }
 
             await authOrderModel.insertMany(authorOrderData)
-            for (let k = 0; k < cardId.length; k++) {
-                await cardModel.findByIdAndDelete(cardId[k]) 
+            if (Array.isArray(cardId)) {
+                const { safeObjectId } = require('../../utiles/sanitize')
+                const safeCardIds = cardId.slice(0, 100).map((id) => safeObjectId(id, 'cardId'))
+                await cardModel.deleteMany({ _id: { $in: safeCardIds } })
             }
    
             setTimeout(() => {
@@ -245,16 +247,18 @@ class orderController{
 
   admin_order_status_update = async(req, res) => {
     const { orderId } = req.params
-    const { status } = req.body
+    const { safeString, safeObjectId } = require('../../utiles/sanitize')
 
     try {
-        await customerOrder.findByIdAndUpdate(orderId, {
+        const safeOrderId = safeObjectId(orderId, 'orderId')
+        const status = safeString(req.body.status, 'status')
+        await customerOrder.findByIdAndUpdate(safeOrderId, {
             delivery_status : status
         })
         responseReturn(res,200, {message: 'order Status change success'})
     } catch (error) {
         console.log('get admin status error' + error.message)
-        responseReturn(res,500, {message: 'internal server error'})
+        responseReturn(res, error.statusCode || 500, {message: error.statusCode ? error.message : 'internal server error'})
     }
      
   }
@@ -303,16 +307,18 @@ class orderController{
 
   seller_order_status_update = async(req,res) => {
     const {orderId} = req.params
-    const { status } = req.body
+    const { safeString, safeObjectId } = require('../../utiles/sanitize')
 
     try {
-        await authOrderModel.findByIdAndUpdate(orderId,{
+        const safeOrderId = safeObjectId(orderId, 'orderId')
+        const status = safeString(req.body.status, 'status')
+        await authOrderModel.findByIdAndUpdate(safeOrderId,{
             delivery_status: status
         })
         responseReturn(res,200, {message: 'order status updated successfully'})
     } catch (error) {
         console.log('get seller Order error' + error.message)
-        responseReturn(res,500, {message: 'internal server error'})
+        responseReturn(res, error.statusCode || 500, {message: error.statusCode ? error.message : 'internal server error'})
     }
 
 

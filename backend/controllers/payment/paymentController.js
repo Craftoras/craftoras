@@ -182,9 +182,10 @@ class paymentController{
     // End Method 
 
     payment_request_confirm = async (req, res) => {
-        const {paymentId} = req.body 
+        const { safeObjectId } = require('../../utiles/sanitize')
         try {
-            const payment = await withdrowRequest.findById(paymentId)
+            const safePaymentId = safeObjectId(req.body.paymentId, 'paymentId')
+            const payment = await withdrowRequest.findById(safePaymentId)
             const {stripeId} = await stripeModel.findOne({
                 sellerId: new ObjectId(payment.sellerId)
             })
@@ -195,7 +196,7 @@ class paymentController{
                 destination: stripeId
             })
              
-            await withdrowRequest.findByIdAndUpdate(paymentId, {status: 'success'})
+            await withdrowRequest.findByIdAndUpdate(safePaymentId, {status: 'success'})
             responseReturn(res, 200, {payment, message: 'Request Confirm Success'})
 
         } catch (error) {   

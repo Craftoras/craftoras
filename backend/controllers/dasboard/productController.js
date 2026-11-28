@@ -103,18 +103,25 @@ class productController{
     // End Method 
 
     product_update = async (req, res) => {
-        let {name, description, stock,price,category, discount,brand,productId} = req.body;
-        name = name.trim()
-        const slug = name.split(' ').join('-')
-
+        const { safeString, safeObjectId } = require('../../utiles/sanitize');
         try {
-            await productModel.findByIdAndUpdate(productId, {
-                name, description, stock,price,category, discount,brand,productId, slug
+            const name = safeString(req.body.name, 'name').trim();
+            const description = safeString(req.body.description, 'description');
+            const category = safeString(req.body.category, 'category');
+            const brand = safeString(req.body.brand, 'brand');
+            const stock = Number(req.body.stock);
+            const price = Number(req.body.price);
+            const discount = Number(req.body.discount);
+            const safeProductId = safeObjectId(req.body.productId, 'productId');
+            const slug = name.split(' ').join('-');
+
+            await productModel.findByIdAndUpdate(safeProductId, {
+                name, description, stock, price, category, discount, brand, slug
             })
-            const product = await productModel.findById(productId)
+            const product = await productModel.findById(safeProductId)
             responseReturn(res, 200,{product, message : 'Product Updated Successfully'})
         } catch (error) {
-            responseReturn(res, 500,{ error : error.message })
+            responseReturn(res, error.statusCode || 500,{ error : error.message })
         }
 
 

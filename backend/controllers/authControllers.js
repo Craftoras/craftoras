@@ -6,13 +6,15 @@ const bcrpty = require('bcrypt')
 const { createToken } = require('../utiles/tokenCreate')
 const cloudinary = require('cloudinary').v2
 const formidable = require("formidable")
+const { safeString } = require('../utiles/sanitize')
 
 class authControllers{
    
     admin_login = async(req,res) => {
-        const {email,password} = req.body
         try {
-            const admin = await adminModel.findOne({email}).select('+password')
+            const email = safeString(req.body.email, 'email').trim()
+            const password = safeString(req.body.password, 'password')
+            const admin = await adminModel.findOne({ email: { $eq: email } }).select('+password')
             // console.log(admin)
             if (admin) {
                 const match = await bcrpty.compare(password, admin.password)
@@ -46,9 +48,10 @@ class authControllers{
 
 
     seller_login = async(req,res) => {
-        const {email,password} = req.body
         try {
-            const seller = await sellerModel.findOne({email}).select('+password')
+            const email = safeString(req.body.email, 'email').trim()
+            const password = safeString(req.body.password, 'password')
+            const seller = await sellerModel.findOne({ email: { $eq: email } }).select('+password')
             // console.log(admin)
             if (seller) {
                 const match = await bcrpty.compare(password, seller.password)
@@ -80,9 +83,11 @@ class authControllers{
 
 
     seller_register = async(req, res) => {
-         const {email,name,password} = req.body
          try {
-            const getUser = await sellerModel.findOne({email})
+            const email = safeString(req.body.email, 'email').trim()
+            const name = safeString(req.body.name, 'name').trim()
+            const password = safeString(req.body.password, 'password')
+            const getUser = await sellerModel.findOne({ email: { $eq: email } })
             if (getUser) {
                 responseReturn(res,404,{error: 'Email Already Exit'})
             }else{
@@ -208,10 +213,11 @@ class authControllers{
 
 /// Change Password 
 change_password = async (req,res) => {
-    const {email, old_password, new_password} = req.body;
-   // console.log(email,old_password,new_password)
    try {
-    const user = await sellerModel.findOne({email}).select('+password');
+    const email = safeString(req.body.email, 'email').trim();
+    const old_password = safeString(req.body.old_password, 'old_password');
+    const new_password = safeString(req.body.new_password, 'new_password');
+    const user = await sellerModel.findOne({ email: { $eq: email } }).select('+password');
     if (!user) return res.status(404).json({message: 'User not found'});
 
     const isMatch = await bcrpty.compare(old_password, user.password);
