@@ -39,13 +39,15 @@ class sellerController{
      // end method 
  
      seller_status_update = async (req, res) => {
-        const {sellerId, status} = req.body
+        const { safeString, safeObjectId } = require('../../utiles/sanitize')
         try {
-            await sellerModel.findByIdAndUpdate(sellerId,{status})
-            const seller = await sellerModel.findById(sellerId)
+            const safeSellerId = safeObjectId(req.body.sellerId, 'sellerId')
+            const status = safeString(req.body.status, 'status')
+            await sellerModel.findByIdAndUpdate(safeSellerId, { status })
+            const seller = await sellerModel.findById(safeSellerId)
             responseReturn(res, 200,{ seller,  message: 'Seller Status Updated Successfully' })
         } catch (error) {
-            responseReturn(res, 500,{ error: error.message })
+            responseReturn(res, error.statusCode || 500,{ error: error.message })
         }
     }
 

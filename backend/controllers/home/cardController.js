@@ -178,9 +178,10 @@ class cardController{
 
 
        add_wishlist = async (req, res) => {
-        const { slug } = req.body
         try {
-            const product = await wishlistModel.findOne({slug})
+            const { safeString } = require('../../utiles/sanitize')
+            const slug = safeString(req.body.slug, 'slug')
+            const product = await wishlistModel.findOne({ slug: { $eq: slug } })
                 if (product) {
                     responseReturn(res, 404 ,{
                         error: 'Product Is Already In Wishlist'

@@ -3,14 +3,16 @@ const { responseReturn } = require('../../utiles/response')
 const bcrypt = require('bcrypt')
 const sellerCustomerModel = require('../../models/chat/sellerCustomerModel')
 const {createToken} = require('../../utiles/tokenCreate')
+const { safeString } = require('../../utiles/sanitize')
 
 class customerAuthController{
 
     customer_register = async(req,res) => {
-        const {name, email, password } = req.body
-
         try {
-            const customer = await customerModel.findOne({email}) 
+            const name = safeString(req.body.name, 'name').trim()
+            const email = safeString(req.body.email, 'email').trim()
+            const password = safeString(req.body.password, 'password')
+            const customer = await customerModel.findOne({ email: { $eq: email } }) 
             if (customer) {
                 responseReturn(res, 404,{ error : 'Email Already Exits'} )
             } else {
@@ -41,9 +43,10 @@ class customerAuthController{
     // End Method
 
     customer_login = async(req, res) => {
-       const { email, password } =req.body
        try {
-        const customer = await customerModel.findOne({email}).select('+password')
+        const email = safeString(req.body.email, 'email').trim()
+        const password = safeString(req.body.password, 'password')
+        const customer = await customerModel.findOne({ email: { $eq: email } }).select('+password')
         if (customer) {
             const match = await bcrypt.compare(password, customer.password)
             if (match) {

@@ -136,7 +136,7 @@ const Chat = () => {
                 if (currentFd?.fdId !== m.receverId) {
                     return(
                  <div ref={scrollRef} key={i} className='w-full flex gap-2 justify-start items-center text-[14px]'>
-            <img className='w-[30px] h-[30px] ' src="http://localhost:3000/images/user.png" alt="" />
+            <img className='w-[30px] h-[30px] ' src="/images/user.png" alt="" />
             <div className='p-2 bg-purple-500 text-white rounded-md'>
                 <span>{m.message}</span>
             </div>
@@ -145,7 +145,7 @@ const Chat = () => {
                 }else{ 
                   return (
                     <div ref={scrollRef} key={i} className='w-full flex gap-2 justify-end items-center text-[14px]'>
-                    <img className='w-[30px] h-[30px] ' src="http://localhost:3000/images/user.png" alt="" />
+                    <img className='w-[30px] h-[30px] ' src="/images/user.png" alt="" />
                     <div className='p-2 bg-cyan-500 text-white rounded-md'>
                         <span>{m.message}</span>
                     </div>

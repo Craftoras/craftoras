@@ -172,11 +172,16 @@ product_details = async (req, res) => {
 // end method 
 
 submit_review = async (req, res) => {
-     const {productId,rating,review,name} = req.body
+     const { safeString, safeObjectId } = require('../../utiles/sanitize')
 
      try {
+        const safeProductId = safeObjectId(req.body.productId, 'productId')
+        const name = safeString(req.body.name, 'name')
+        const review = safeString(req.body.review, 'review')
+        const rating = Number(req.body.rating)
+
         await reviewModel.create({
-            productId,
+            productId: safeProductId,
             name,
             rating,
             review,
@@ -185,7 +190,7 @@ submit_review = async (req, res) => {
 
         let rat = 0;
         const reviews = await reviewModel.find({
-            productId
+            productId: { $eq: safeProductId }
         })
         for (let i = 0; i < reviews.length; i++) {
             rat = rat + reviews[i].rating 
@@ -195,7 +200,7 @@ submit_review = async (req, res) => {
             productRating = (rat / reviews.length).toFixed(1)
         }
 
-        await productModel.findByIdAndUpdate(productId,{
+        await productModel.findByIdAndUpdate(safeProductId,{
             rating : productRating
         })
         responseReturn(res, 201, {

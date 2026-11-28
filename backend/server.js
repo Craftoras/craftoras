@@ -50,13 +50,18 @@ const allowedOrigins = [
 if (process.env.CLIENT_URL) {
     allowedOrigins.push(process.env.CLIENT_URL)
 }
+if (process.env.DASHBOARD_URL) {
+    allowedOrigins.push(process.env.DASHBOARD_URL)
+}
 
 app.use(cors({
     origin: function (origin, callback) {
         if (!origin || allowedOrigins.indexOf(origin) !== -1) {
             callback(null, true)
+        } else if (process.env.NODE_ENV !== 'production') {
+            callback(null, true) // Allow local dev origins
         } else {
-            callback(null, true) // Allow other dev origins gracefully
+            callback(new Error('Not allowed by CORS'))
         }
     },
     credentials: true
@@ -65,7 +70,7 @@ app.use(cors({
 // Socket.IO Configuration
 const io = socket(server, {
     cors: {
-        origin: '*',
+        origin: process.env.NODE_ENV === 'production' ? allowedOrigins : '*',
         credentials: true
     }
 })

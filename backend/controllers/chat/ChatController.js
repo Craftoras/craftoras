@@ -4,17 +4,20 @@ const sellerCustomerModel = require('../../models/chat/sellerCustomerModel')
 const sellerCustomerMessage = require('../../models/chat/sellerCustomerMessage')
 const adminSellerMessage = require('../../models/chat/adminSellerMessage')
 const { responseReturn } = require('../../utiles/response')
+const { safeString, safeObjectId } = require('../../utiles/sanitize')
 
 
 class ChatController{
 
     add_customer_friend = async (req, res) => {
-         const { sellerId, userId} = req.body
-
          try {
+            const sellerId = typeof req.body.sellerId === 'string' ? req.body.sellerId : ''
+            const userId = safeString(req.body.userId, 'userId')
+            const safeUserObjectId = safeObjectId(userId, 'userId')
             if (sellerId !== '') {
-                const seller = await sellerModel.findById(sellerId)
-                const user = await customerModel.findById(userId)
+                const safeSellerObjectId = safeObjectId(sellerId, 'sellerId')
+                const seller = await sellerModel.findById(safeSellerObjectId)
+                const user = await customerModel.findById(safeUserObjectId)
                 const checkSeller = await sellerCustomerModel.findOne({
                     $and : [
                         {
@@ -24,7 +27,7 @@ class ChatController{
                         },{
                             myFriends : {
                                 $elemMatch : {
-                                    fdId : sellerId
+                                    fdId : { $eq: sellerId }
                                 }
                             } 
                         }
@@ -32,7 +35,7 @@ class ChatController{
                 })
                if (!checkSeller) {
                   await sellerCustomerModel.updateOne({
-                      myId: userId
+                      myId: { $eq: userId }
                   }, {
                     $push: {
                         myFriends: {
@@ -54,7 +57,7 @@ class ChatController{
                     },{
                         myFriends : {
                             $elemMatch : {
-                                fdId : userId
+                                fdId : { $eq: userId }
                             }
                         } 
                     }
@@ -62,7 +65,7 @@ class ChatController{
             })
            if (!checkCustomer) {
               await sellerCustomerModel.updateOne({
-                  myId: sellerId
+                  myId: { $eq: sellerId }
               }, {
                 $push: {
                     myFriends: {
@@ -96,7 +99,7 @@ class ChatController{
                 ]
            })
            const MyFriends = await sellerCustomerModel.findOne({
-               myId: userId
+               myId: { $eq: userId }
            })
            const currentFd = MyFriends.myFriends.find(s => s.fdId === sellerId)
            responseReturn(res,200, {
@@ -107,7 +110,7 @@ class ChatController{
 
             } else {
                 const MyFriends = await sellerCustomerModel.findOne({
-                    myId: userId
+                    myId: { $eq: userId }
                 })
                 responseReturn(res,200, {
                     MyFriends: MyFriends.myFriends 
@@ -121,9 +124,12 @@ class ChatController{
     // End Method 
 
     customer_message_add = async (req, res) => {
-        const {userId,text,sellerId,name } = req.body
-
         try {
+            const userId = safeString(req.body.userId, 'userId')
+            const sellerId = safeString(req.body.sellerId, 'sellerId')
+            const text = safeString(req.body.text, 'text')
+            const name = safeString(req.body.name, 'name')
+
             const message = await sellerCustomerMessage.create({
                 senderId: userId,
                 senderName: name,
@@ -131,7 +137,7 @@ class ChatController{
                 message : text 
             })
 
-            const data = await sellerCustomerModel.findOne({ myId : userId })
+            const data = await sellerCustomerModel.findOne({ myId : { $eq: userId } })
             let myFriends = data.myFriends
             let index = myFriends.findIndex(f => f.fdId === sellerId)
             while (index > 0) {
@@ -142,7 +148,7 @@ class ChatController{
             }
             await sellerCustomerModel.updateOne(
                 {
-                    myId: userId
+                    myId: { $eq: userId }
                 },
                 {
                     myFriends
@@ -152,7 +158,7 @@ class ChatController{
 
 
 
-            const data1 = await sellerCustomerModel.findOne({ myId : sellerId })
+            const data1 = await sellerCustomerModel.findOne({ myId : { $eq: sellerId } })
             let myFriends1 = data1.myFriends
             let index1 = myFriends1.findIndex(f => f.fdId === userId)
             while (index1 > 0) {
@@ -163,7 +169,7 @@ class ChatController{
             }
             await sellerCustomerModel.updateOne(
                 {
-                    myId: sellerId
+                    myId: { $eq: sellerId }
                 },
                 {
                     myFriends1
@@ -234,8 +240,12 @@ class ChatController{
 
 
      seller_message_add = async (req, res) => {
-        const {senderId,receverId,text,name} = req.body
         try {
+            const senderId = safeString(req.body.senderId, 'senderId')
+            const receverId = safeString(req.body.receverId, 'receverId')
+            const text = safeString(req.body.text, 'text')
+            const name = safeString(req.body.name, 'name')
+
             const message = await sellerCustomerMessage.create({
                 senderId: senderId,
                 senderName: name,
@@ -243,7 +253,7 @@ class ChatController{
                 message : text 
             })
 
-            const data = await sellerCustomerModel.findOne({ myId : senderId })
+            const data = await sellerCustomerModel.findOne({ myId : { $eq: senderId } })
             let myFriends = data.myFriends
             let index = myFriends.findIndex(f => f.fdId === receverId)
             while (index > 0) {
@@ -254,7 +264,7 @@ class ChatController{
             }
             await sellerCustomerModel.updateOne(
                 {
-                    myId: senderId
+                    myId: { $eq: senderId }
                 },
                 {
                     myFriends
@@ -264,7 +274,7 @@ class ChatController{
 
 
 
-            const data1 = await sellerCustomerModel.findOne({ myId : receverId })
+            const data1 = await sellerCustomerModel.findOne({ myId : { $eq: receverId } })
             let myFriends1 = data1.myFriends
             let index1 = myFriends1.findIndex(f => f.fdId === senderId)
             while (index1 > 0) {
@@ -275,7 +285,7 @@ class ChatController{
             }
             await sellerCustomerModel.updateOne(
                 {
-                    myId: receverId
+                    myId: { $eq: receverId }
                 },
                 {
                     myFriends1
