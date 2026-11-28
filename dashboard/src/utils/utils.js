@@ -10,9 +10,17 @@ const socketUrl = process.env.REACT_APP_API_URL || 'http://localhost:5001'
 export const socket = io(socketUrl)
 
 /**
- * Validates that an image preview URL uses a safe scheme (blob:, http(s):, or relative /).
+ * Validates and normalizes an image preview URL using URL parsing and a strict protocol allowlist.
  */
 export const safePreviewUrl = (url) => {
-    if (typeof url !== 'string') return ''
-    return /^(blob:|https?:\/\/|\/)/.test(url) ? url : ''
+    if (typeof url !== 'string' || /[<>"'`]/.test(url)) return ''
+    try {
+        const parsed = new URL(url, window.location.origin)
+        if (parsed.protocol === 'blob:' || parsed.protocol === 'http:' || parsed.protocol === 'https:') {
+            return parsed.href
+        }
+    } catch {
+        return ''
+    }
+    return ''
 }
